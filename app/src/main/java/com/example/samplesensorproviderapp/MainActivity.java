@@ -18,10 +18,16 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.basicandroidmqttclient.MESSAGE";
-    public static final String brokerURI = "3.223.10.115";
+    public static final String brokerURI = "35.172.171.194";
 
     Activity thisActivity;
     TextView subMsgTextView;
+
+    private TextView lightSensorTextView;
+    private TextView temperatureSensorTextView;
+
+    private LightSensorAccess lightSensorAccess;
+    private TemperatureSensorAccess temperatureSensorAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         thisActivity = this;
         subMsgTextView = (TextView) findViewById(R.id.editTextMultiLineSubMsg);
+
     }
 
     /** Called when the user taps the Send button */

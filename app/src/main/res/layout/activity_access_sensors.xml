@@ -10,8 +10,8 @@
         android:id="@+id/textViewSensorActivityTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="48dp"
         android:text="Light Sensor:"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -30,5 +30,33 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textViewSensorActivityTitle"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textViewTemperatureSensorActivityTitle"
+        android:layout_width="182dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="13dp"
+        android:text="Temperature:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTemperature"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSensorActivityTitle" />
+
+    <TextView
+        android:id="@+id/textViewTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:text="(temperature value)"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@+id/textViewLuminosity"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureSensorActivityTitle"
+        tools:layout_editor_absoluteX="240dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

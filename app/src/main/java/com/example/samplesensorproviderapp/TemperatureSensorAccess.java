@@ -12,45 +12,44 @@ import com.hivemq.client.mqtt.mqtt5.Mqtt5Client;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-public class LightSensorAccess implements SensorEventListener {
+public class TemperatureSensorAccess implements SensorEventListener {
 
     private SensorManager sensorManager;
-    private Sensor mLight;
-    private TextView sensorField;
+    private Sensor mTemperature;
+    private TextView textViewTemperature;
 
     private Mqtt5BlockingClient mqttClient;
     private String mqttBrokerURI = "35.172.171.194";
 
-    public LightSensorAccess(SensorManager sm, TextView tv) {
+    public TemperatureSensorAccess(SensorManager sm, TextView tv) {
         sensorManager = sm;
-        sensorField = tv;
-        mLight = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-
-
+        textViewTemperature = tv;
         mqttClient = Mqtt5Client.builder()
                 .identifier(UUID.randomUUID().toString())
                 .serverHost(mqttBrokerURI)
                 .buildBlocking();
 
-        if (mLight != null) {
-            sensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+        mTemperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+
+        if (mTemperature != null) {
+            sensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
 
+            textViewTemperature.setText("sensor de temperatura não está disponível no dispositivo");
         }
     }
 
     @Override
-    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
 
     @Override
-    public final void onSensorChanged(SensorEvent event) {
+    public void onSensorChanged(SensorEvent event) {
+        float temperatureValue = event.values[0];
+        textViewTemperature.setText(temperatureValue + " °C");
 
-        float lux = event.values[0];
-        sensorField.setText(String.valueOf(lux));
-
-        publishToMQTT("sensorLuz", String.valueOf(lux));
+        publishToMQTT("sensorTemperatura", String.valueOf(temperatureValue));
     }
 
     private void publishToMQTT(String topic, String message) {
